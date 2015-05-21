@@ -1,0 +1,65 @@
+#
+# Cookbook Name:: bacula-client
+# Recipe:: _linux
+#
+# Copyright 2015 Pavel Yudin
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+include_recipe 'apt' if platform_family?('debian')
+
+package 'bacula-client' do
+  action :install
+end
+
+databag = data_bag_item(node['bacula']['databag_name'], node['bacula']['databag_item'])
+
+directory node['bacula']['client']['scripts'] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  recursive true
+  action :create
+end
+
+directory node['bacula']['client']['cache'] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
+template '/etc/bacula/bacula-fd.conf' do
+  source 'bacula-fd.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0640'
+  variables(:fdpassword => databag['fd_password'])
+  notifies :restart, 'service[bacula-fd]'
+end
+
+service 'bacula-fd' do
+  supports :status => true, :restart => true, :reload => true
+  action [:enable, :start]
+end
+
+ruby_block 'updating backup list' do
+  block do
+    backups = run_context.resource_collection.select { |r| r.is_a?(Chef::Resource::Backup) }
+    backups.map! do |r|
+      { name: r.name, run: r.run, files: r.files, prejob_script: r.prejob_script,
+        postjob_script: r.postjob_script, exclude: r.exclude, options: r.options }
+    end
+    node.set['bacula']['client']['backups'] = backups
+  end
+end
