@@ -30,7 +30,7 @@ class Chef
           # I did it, because chef_gem not support the setting of environment variables.
           execute 'install knife-ec-backup gem' do
             command '/opt/chef/embedded/bin/gem install knife-ec-backup -q --no-rdoc --no-ri'
-            environment 'PATH' => "#{ENV["PATH"]}:/opt/opscode/embedded/bin",
+            environment 'PATH' => "#{ENV['PATH']}:/opt/opscode/embedded/bin",
                         'C_INCLUDE_PATH' => '/opt/opscode/embedded/postgresql/9.2/include'
             action :run
             not_if '/opt/chef/embedded/bin/gem list | grep "knife-ec-backup"'
