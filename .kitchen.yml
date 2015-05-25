@@ -10,6 +10,8 @@ platforms:
   - name: ubuntu-14.04
     driver:
       box: parallels/ubuntu-14.04
+      customize:
+        memsize: 1024
   - name: centos-6.6
     driver:
       box: parallels/centos-6.6
@@ -23,4 +25,14 @@ suites:
   - name: default
     run_list:
       - recipe[bacula_test::default]
+    excludes:
+      - windows-2012R2
+    attributes:
+
+  - name: windows
+    run_list:
+      - recipe[bacula-client::default]
+    excludes:
+      - centos-6.6
+      - ubuntu-14.04
     attributes:

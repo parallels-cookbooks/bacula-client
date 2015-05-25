@@ -16,5 +16,6 @@ when 'debian', 'ubuntu'
 when 'windows'
   default['bacula']['client']['working_directory'] = 'C:\\\\Program Files\\\\Bacula\\\\working'
   default['bacula']['client']['pid_directory'] = 'C:\\\\Program Files\\\\Bacula\\\\working'
-  default['bacula']['client']['scripts'] = 'C:\\\\Program Files\\\\Bacula\\\\bin'
+  default['bacula']['client']['scripts'] = 'C:\\\\Program Files\\\\Bacula\\\\bin32'
+  default['bacula']['client']['version'] = '5.0.3'
 end

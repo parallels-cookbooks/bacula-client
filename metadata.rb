@@ -7,5 +7,4 @@ long_description 'Installs/Configures bacula-client'
 version          '0.1.0'
 
 depends 'apt'
-depends 'windows'
 depends 'build-essential'

@@ -20,6 +20,7 @@ include_recipe 'apt' if platform_family?('debian')
 
 package 'bacula-client' do
   action :install
+  version node['bacula']['client']['version'] if node['bacula']['client']['version']
 end
 
 databag = data_bag_item(node['bacula']['databag_name'], node['bacula']['databag_item'])
