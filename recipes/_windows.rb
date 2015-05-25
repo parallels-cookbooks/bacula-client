@@ -18,15 +18,15 @@
 
 databag = data_bag_item(node['bacula']['databag_name'], node['bacula']['databag_item'])
 
-remote_file ::File.join(Chef::Config[:file_cache_path],'bacula-client.exe') do
+remote_file ::File.join(Chef::Config[:file_cache_path], 'bacula-client.exe') do
   action :create_if_missing
   source "http://downloads.sourceforge.net/project/bacula/Win32_64/#{node['bacula']['client']['version']}/bacula-win64-#{node['bacula']['client']['version']}.exe"
 end
 
 execute 'bacula client installation' do
-  command "#{::File.join(Chef::Config[:file_cache_path],'bacula-client.exe')} /S"
+  command "#{::File.join(Chef::Config[:file_cache_path], 'bacula-client.exe')} /S"
   action :run
-  not_if {::File.directory?('C:\\Program Files\\Bacula')}
+  not_if { ::File.directory?('C:\\Program Files\\Bacula') }
 end
 
 template 'C:\Program Files\Bacula\bacula-fd.conf' do

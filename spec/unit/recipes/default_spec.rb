@@ -31,9 +31,9 @@ describe 'bacula-client::default' do
         let(:chef_run) do
           runner = ChefSpec::ServerRunner.new(platform: platform, version: version) do |_node, server|
             server.create_data_bag('bacula',
-                               'bacula' => {
-                                  fd_password: 'fd_password'
-                               }
+                                   'bacula' => {
+                                     fd_password: 'fd_password'
+                                   }
             )
           end
           runner.converge(described_recipe)
@@ -71,13 +71,13 @@ describe 'bacula-client::default' do
     end
   end
 
-  context "When all attributes are default, on an windows version 2012r2" do
+  context 'When all attributes are default, on an windows version 2012r2' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2012R2') do |_node, server|
         server.create_data_bag('bacula',
-                           'bacula' => {
-                              fd_password: 'fd_password'
-                           }
+                               'bacula' => {
+                                 fd_password: 'fd_password'
+                               }
         )
       end
       runner.converge(described_recipe)

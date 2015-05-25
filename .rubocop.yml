@@ -18,5 +18,12 @@ HashSyntax:
 AlignParameters:
   Exclude:
     - '**/metadata.rb'
+
 MethodLength:
+  Enabled: false
+
+AbcSize:
+  Enabled: false
+
+Documentation:
   Enabled: false

@@ -45,7 +45,7 @@ template '/etc/bacula/bacula-fd.conf' do
   owner 'root'
   group 'root'
   mode '0640'
-  variables(:fdpassword => databag['fd_password'])
+  variables(:fd_password => databag['fd_password'])
   notifies :restart, 'service[bacula-fd]'
 end
 
