@@ -63,6 +63,10 @@ describe 'bacula-client::default' do
           expect(chef_run).to start_service('bacula-fd')
           expect(chef_run).to enable_service('bacula-fd')
         end
+
+        it 'runs ruby block' do
+          expect(chef_run).to run_ruby_block('updating the list of backups')
+        end
       end
     end
   end
@@ -80,12 +84,20 @@ describe 'bacula-client::default' do
     end
 
     it 'installs package with bacula client' do
-      expect(chef_run).to istall_windows_package('bacula-client')
+      expect(chef_run).to run_execute('bacula client installation')
     end
 
-    it 'enables and start service' do
-      expect(chef_run).to enable_windows_service('Bacula-fd')
-      expect(chef_run).to start_windows_service('Bacula-fd')
+    it 'enables and starts Bacula-fd service' do
+      expect(chef_run).to enable_service('Bacula-fd')
+      expect(chef_run).to start_service('Bacula-fd')
+    end
+
+    it 'creates bacula-client config' do
+      expect(chef_run).to create_template('C:\Program Files\Bacula\bacula-fd.conf')
+    end
+
+    it 'runs ruby block' do
+      expect(chef_run).to run_ruby_block('updating the list of backups')
     end
   end
 end
