@@ -33,11 +33,6 @@ include_recipe 'chef-server'
 
 backup_chef 'chefserver' do
   run ['Full mon at 3:00']
-  user 'backup'
-  url 'https://chef.loc'
-  key <<-EOF
-key
-  EOF
 end
 
 node.set['stash']['backup']['backup_path'] = '/tmp/stash-backup-result'

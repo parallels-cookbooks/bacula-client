@@ -57,7 +57,6 @@ class Chef
           backup_string = "#!/bin/bash\n"
           backup_string += 'knife ec backup '
           backup_string += "#{new_resource.files[0]} "
-          backup_string += "-s #{new_resource.url} " if new_resource.url
           backup_string += "> /dev/null\n"
 
           file new_resource.prejob_script do

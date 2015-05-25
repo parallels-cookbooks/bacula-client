@@ -4,6 +4,7 @@ default['bacula']['databag_item'] = 'bacula'
 default['bacula']['client']['backups'] = []
 default['bacula']['client']['cache'] = '/var/cache/backup'
 default['bacula']['client']['director_name'] = 'bacula-dir'
+
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['bacula']['client']['working_directory'] = '/var/spool/bacula'

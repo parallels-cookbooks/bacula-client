@@ -29,18 +29,6 @@ class Chef
         @prejob_script = ::File.join(node['bacula']['client']['scripts'], "create_#{name}")
         @postjob_script = ::File.join(node['bacula']['client']['scripts'], "delete_#{name}")
       end
-
-      def url(arg = nil)
-        set_or_return(:url, arg, kind_of: String)
-      end
-
-      def user(arg = nil)
-        set_or_return(:user, arg, kind_of: String)
-      end
-
-      def key(arg = nil)
-        set_or_return(:password, arg, kind_of: String)
-      end
     end
   end
 end
