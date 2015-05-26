@@ -8,18 +8,10 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
-    driver:
-      box: parallels/ubuntu-14.04
-      customize:
-        memsize: 1024
   - name: centos-6.6
-    driver:
-      box: parallels/centos-6.6
   - name: windows-2012R2
     transport:
       name: winrm
-    driver:
-      box: win-2012r2
 
 suites:
   - name: default
