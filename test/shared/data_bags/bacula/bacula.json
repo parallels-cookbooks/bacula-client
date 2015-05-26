@@ -1,0 +1,10 @@
+{
+  "id": "bacula",
+  "postgres_root_password": "postgres_root_password",
+  "db_name": "bacula",
+  "db_user": "bacula",
+  "db_password": "password",
+  "sd_password": "sd_password",
+  "console_password": "console_password",
+  "fd_password": "fd_password"
+}
