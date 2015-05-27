@@ -23,7 +23,7 @@ suites:
 
   - name: windows
     run_list:
-      - recipe[bacula-client::default]
+      - recipe[bacula_test::windows]
     excludes:
       - centos-6.6
       - ubuntu-14.04
