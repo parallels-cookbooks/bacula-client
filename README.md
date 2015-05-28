@@ -3,10 +3,13 @@
 ## Description
 The cookbook for installation bacula-client. You should use cookbook bacula-server to install a server.
 
+This cookbook uses [windows](https://supermarket.chef.io/cookbooks/windows) cookbook as dependency. This can break your recipes if you use native `windows_package` resource.
+
 ## Requirements
 ### Cookbooks
 - [apt](https://supermarket.chef.io/cookbooks/apt)
 - [build-essential](https://supermarket.chef.io/cookbooks/build-essential)
+- [windows](https://supermarket.chef.io/cookbooks/windows)
 
 ### Platforms
 The following platforms are supported and tested uder test kitchen:
@@ -93,6 +96,18 @@ Resource uses stash DIY backup.
 - :create: create backup job.
 
 
+### backup_systemstate
+The resource for backup a system state of a windows server. This resource works only on a windows server. It is wrapper under `wbadmin` command.
+
+#### Actions
+- :create: create backup job.
+
+#### Attribute Parameters
+
+|Attribute|Description|Type|Default|
+|---------|-----------|----|-------|
+|files|This parameter is required. It specifies where `wbadmin` will backup a system state. In reality only pass the name of disk. `wbadmin` always saves backup in a directory X:\WindowsImageBackup, where X is a parameter passed into `-targetBackup` argument. Summarized: you must always pass a path like X:\WindowsImageBackup, where you may change only name of disk.|Array||
+
 ### Examples
 
 - Backup the directory without subdir.
@@ -143,6 +158,15 @@ end
 ```
 backup_stash 'stash' do
   run ['Full mon at 3:00']
+end
+```
+
+- Backup a system state of the windows server.
+
+```
+backup_systemstate 'system' do
+  run ['Full mon at 3:00']
+  files ['C:\WindowsImageBackup']
 end
 ```
 
