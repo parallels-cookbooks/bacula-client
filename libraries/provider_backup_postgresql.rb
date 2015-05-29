@@ -39,7 +39,8 @@ class Chef
             pgdump_string += "-U #{new_resource.user} " if new_resource.user
             pgdump_string += "-p #{new_resource.port} " if new_resource.port
             pgdump_string += "#{new_resource.backup_options.join(' ')} " if new_resource.backup_options
-            pgdump_string += "-f #{new_resource.files[0]}\n"
+            pgdump_string += "-f #{new_resource.files[0]} "
+            pgdump_string += "#{new_resource.database}\n"
 
             file new_resource.prejob_script do
               action :create
