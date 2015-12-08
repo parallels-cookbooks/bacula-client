@@ -40,6 +40,13 @@ directory node['bacula']['client']['cache'] do
   action :create
 end
 
+directory node['bacula']['client']['plugin_dir'] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
 template '/etc/bacula/bacula-fd.conf' do
   source 'bacula-fd.conf.erb'
   owner 'root'

@@ -29,6 +29,7 @@ class Chef
         @allowed_actions = [:create]
         @files = []
         @options = { signature: 'MD5', compression: 'GZIP' }
+        @bpipe = false
       end
 
       def run(arg = nil)
@@ -53,6 +54,10 @@ class Chef
 
       def exclude(arg = nil)
         set_or_return(:exclude, arg, kind_of: Array)
+      end
+
+      def bpipe(arg = nil)
+        set_or_return(:bpipe, arg, kind_of: [TrueClass, FalseClass])
       end
     end
   end

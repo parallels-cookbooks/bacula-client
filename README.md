@@ -55,6 +55,7 @@ This is the main resource. It is inherited by all other resources.
 |postjob_script|Name of script what will be ran after job|String||
 |options|Job options. Detailed description is [here](http://www.bacula.org/5.2.x-manuals/en/main/main/Configuring_Director.html#SECTION001470000000000000000)|hash|{ signature: 'MD5', compression: 'GZIP' }|
 |exclude|List of files that will be excluded from backup|Array||
+|bpipe|Flag enabling backup through bpipe.|Bolean|false|
 
 **All of these attributess are present in all other resources.**
 
@@ -198,7 +199,3 @@ Data bag example:
 Authors
 ---
 - Author:: Pavel Yudin (pyudin@parallels.com)
-
-
-
-

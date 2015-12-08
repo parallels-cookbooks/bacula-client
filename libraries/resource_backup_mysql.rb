@@ -26,6 +26,7 @@ class Chef
 
         @resource_name = :backup_mysql
         @provider = Chef::Provider::Bacula::BackupDatabase::Mysql
+        @bpipe = true
       end
     end
   end
