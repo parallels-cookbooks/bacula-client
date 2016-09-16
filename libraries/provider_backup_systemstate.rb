@@ -33,9 +33,9 @@ class Chef
 
           registry_key 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wbengine\SystemStateBackup' do
             values [{
-              :name => 'AllowSSBToAnyVolume',
-              :type => :dword,
-              :data => 1
+              name: 'AllowSSBToAnyVolume',
+              type: :dword,
+              data: 1
             }]
             action :create
           end

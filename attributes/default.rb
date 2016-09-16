@@ -10,11 +10,11 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['bacula']['client']['working_directory'] = '/var/spool/bacula'
   default['bacula']['client']['pid_directory'] = '/var/run'
   default['bacula']['client']['scripts'] = '/usr/bin/bacula'
-  if node['kernel']['machine'] == 'x86_64'
-    default['bacula']['client']['plugin_dir'] = '/usr/lib64/bacula'
-  else
-    default['bacula']['client']['plugin_dir'] = '/usr/lib/bacula'
-  end
+  default['bacula']['client']['plugin_dir'] = if node['kernel']['machine'] == 'x86_64'
+                                                '/usr/lib64/bacula'
+                                              else
+                                                '/usr/lib/bacula'
+                                              end
 when 'debian', 'ubuntu'
   default['bacula']['client']['working_directory'] = '/var/lib/bacula'
   default['bacula']['client']['pid_directory'] = '/var/run/bacula'

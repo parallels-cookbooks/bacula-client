@@ -34,7 +34,7 @@ describe 'bacula-client::default' do
                                    'bacula' => {
                                      fd_password: 'fd_password'
                                    }
-            )
+                                  )
           end
           runner.converge(described_recipe)
         end
@@ -78,7 +78,7 @@ describe 'bacula-client::default' do
                                'bacula' => {
                                  fd_password: 'fd_password'
                                }
-        )
+                              )
       end
       runner.converge(described_recipe)
     end

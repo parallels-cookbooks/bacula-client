@@ -52,11 +52,11 @@ template '/etc/bacula/bacula-fd.conf' do
   owner 'root'
   group 'root'
   mode '0640'
-  variables(:fd_password => databag['fd_password'])
+  variables(fd_password: databag['fd_password'])
   notifies :restart, 'service[bacula-fd]'
 end
 
 service 'bacula-fd' do
-  supports :status => true, :restart => true, :reload => true
+  supports status: true, restart: true, reload: true
   action [:enable, :start]
 end

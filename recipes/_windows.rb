@@ -37,6 +37,6 @@ template 'C:\Program Files\Bacula\bacula-fd.conf' do
 end
 
 service 'Bacula-fd' do
-  supports :status => true, :start => true, :stop => true, :restart => true
+  supports status: true, start: true, stop: true, restart: true
   action [:start, :enable]
 end
