@@ -27,15 +27,6 @@ class Chef
         def action_create
           include_recipe 'build-essential::default'
 
-          # I did it, because chef_gem not support the setting of environment variables.
-          execute 'install knife-ec-backup gem' do
-            command '/opt/chef/embedded/bin/gem install knife-ec-backup -q --no-rdoc --no-ri'
-            environment 'PATH' => "#{ENV['PATH']}:/opt/opscode/embedded/bin",
-                        'C_INCLUDE_PATH' => '/opt/opscode/embedded/postgresql/9.2/include'
-            action :run
-            not_if '/opt/chef/embedded/bin/gem list | grep "knife-ec-backup"'
-          end
-
           super
           create_prejob_script
           create_postjob_script
@@ -55,7 +46,7 @@ class Chef
 
         def create_prejob_script
           backup_string = "#!/bin/bash\n"
-          backup_string += 'knife ec backup '
+          backup_string += '/opt/opscode/embedded/bin/knife ec backup '
           backup_string += "-s #{new_resource.url} " if new_resource.url
           backup_string += "#{new_resource.files[0]} "
           backup_string += "> /dev/null\n"

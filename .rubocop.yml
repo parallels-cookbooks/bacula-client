@@ -1,29 +1,30 @@
 AllCops:
-  Include:
-    - Berksfile
-    - Gemfile
-    - Rakefile
   Exclude:
-    - test/**/*
     - vendor/**/*
 
+AlignParameters:
+  Enabled: false
+ClassLength:
+  Enabled: false
+CyclomaticComplexity:
+  Enabled: false
+Documentation:
+  Enabled: false
+Encoding:
+  Enabled: false
+Style/FileName:
+  Enabled: false
 LineLength:
   Enabled: false
-SingleSpaceBeforeFirstArg:
-  Exclude:
-    - '**/metadata.rb'
-HashSyntax:
-  Enabled: false
-
-AlignParameters:
-  Exclude:
-    - '**/metadata.rb'
-
 MethodLength:
   Enabled: false
-
-AbcSize:
+Metrics/AbcSize:
   Enabled: false
-
-Documentation:
+PerceivedComplexity:
+  Enabled: false
+Style/SpaceBeforeFirstArg:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/FileName:
   Enabled: false
