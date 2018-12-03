@@ -40,16 +40,23 @@ directory node['bacula']['client']['cache'] do
   action :create
 end
 
+directory node['bacula']['client']['plugin_dir'] do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
 template '/etc/bacula/bacula-fd.conf' do
   source 'bacula-fd.conf.erb'
   owner 'root'
   group 'root'
   mode '0640'
-  variables(:fd_password => databag['fd_password'])
+  variables(fd_password: databag['fd_password'])
   notifies :restart, 'service[bacula-fd]'
 end
 
 service 'bacula-fd' do
-  supports :status => true, :restart => true, :reload => true
+  supports status: true, restart: true, reload: true
   action [:enable, :start]
 end

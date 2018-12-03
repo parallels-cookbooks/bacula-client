@@ -22,7 +22,7 @@ describe 'bacula-client::default' do
   platforms = {
     'redhat' => ['6.5'],
     'centos' => ['6.5'],
-    'ubuntu' => ['14.04']
+    'ubuntu' => ['14.04'],
   }
 
   platforms.each do |platform, versions|
@@ -32,9 +32,9 @@ describe 'bacula-client::default' do
           runner = ChefSpec::ServerRunner.new(platform: platform, version: version) do |_node, server|
             server.create_data_bag('bacula',
                                    'bacula' => {
-                                     fd_password: 'fd_password'
+                                     fd_password: 'fd_password',
                                    }
-            )
+                                  )
           end
           runner.converge(described_recipe)
         end
@@ -76,9 +76,9 @@ describe 'bacula-client::default' do
       runner = ChefSpec::ServerRunner.new(platform: 'windows', version: '2012R2') do |_node, server|
         server.create_data_bag('bacula',
                                'bacula' => {
-                                 fd_password: 'fd_password'
+                                 fd_password: 'fd_password',
                                }
-        )
+                              )
       end
       runner.converge(described_recipe)
     end

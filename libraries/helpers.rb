@@ -22,7 +22,8 @@ module BaculaClient
       backups = run_context.resource_collection.select { |r| r.is_a?(Chef::Resource::Backup) }
       backups.map! do |r|
         { name: r.name, run: r.run, files: r.files, prejob_script: r.prejob_script,
-          postjob_script: r.postjob_script, exclude: r.exclude, options: r.options }
+          postjob_script: r.postjob_script, exclude: r.exclude, options: r.options,
+          bpipe: r.bpipe }
       end
       node.set['bacula']['client']['backups'] = backups
     end
