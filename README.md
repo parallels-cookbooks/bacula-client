@@ -3,10 +3,13 @@
 ## Description
 The cookbook for installation bacula-client. You should use cookbook bacula-server to install a server.
 
+This cookbook uses [windows](https://supermarket.chef.io/cookbooks/windows) cookbook as dependency. This can break your recipes if you use native `windows_package` resource.
+
 ## Requirements
 ### Cookbooks
 - [apt](https://supermarket.chef.io/cookbooks/apt)
 - [build-essential](https://supermarket.chef.io/cookbooks/build-essential)
+- [windows](https://supermarket.chef.io/cookbooks/windows)
 
 ### Platforms
 The following platforms are supported and tested uder test kitchen:
@@ -52,6 +55,7 @@ This is the main resource. It is inherited by all other resources.
 |postjob_script|Name of script what will be ran after job|String||
 |options|Job options. Detailed description is [here](http://www.bacula.org/5.2.x-manuals/en/main/main/Configuring_Director.html#SECTION001470000000000000000)|hash|{ signature: 'MD5', compression: 'GZIP' }|
 |exclude|List of files that will be excluded from backup|Array||
+|bpipe|Flag enabling backup through bpipe.|Bolean|false|
 
 **All of these attributess are present in all other resources.**
 
@@ -92,6 +96,18 @@ Resource uses stash DIY backup.
 #### Actions
 - :create: create backup job.
 
+
+### backup_systemstate
+The resource for backup a system state of a windows server. This resource works only on a windows server. It is wrapper under `wbadmin` command.
+
+#### Actions
+- :create: create backup job.
+
+#### Attribute Parameters
+
+|Attribute|Description|Type|Default|
+|---------|-----------|----|-------|
+|files|This parameter is required. It specifies where `wbadmin` will backup a system state. In reality only pass the name of disk. `wbadmin` always saves backup in a directory X:\WindowsImageBackup, where X is a parameter passed into `-targetBackup` argument. Summarized: you must always pass a path like X:\WindowsImageBackup, where you may change only name of disk.|Array||
 
 ### Examples
 
@@ -146,6 +162,15 @@ backup_stash 'stash' do
 end
 ```
 
+- Backup a system state of the windows server.
+
+```
+backup_systemstate 'system' do
+  run ['Full mon at 3:00']
+  files ['C:\WindowsImageBackup']
+end
+```
+
 ## Usage
 ### How it works
 When you include client or default recipe in your wrapper, recipe installs bacula file daemon(client) and configures it.
@@ -174,7 +199,3 @@ Data bag example:
 Authors
 ---
 - Author:: Pavel Yudin (pyudin@parallels.com)
-
-
-
-

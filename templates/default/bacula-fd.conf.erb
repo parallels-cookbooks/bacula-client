@@ -12,6 +12,9 @@ FileDaemon {
   FDport = 9102
   WorkingDirectory = "<%= node['bacula']['client']['working_directory'] %>"
   Pid Directory = "<%= node['bacula']['client']['pid_directory'] %>"
+  <% if node['bacula']['client']['plugin_dir'] %>
+  Plugin Directory = "<%= node['bacula']['client']['plugin_dir'] %>"
+  <% end %>
   Maximum Concurrent Jobs = 20
 }
 

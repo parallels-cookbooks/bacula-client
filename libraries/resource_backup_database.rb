@@ -51,6 +51,10 @@ class Chef
         set_or_return(:database, arg, kind_of: String)
       end
 
+      def tables(arg = nil)
+        set_or_return(:tables, arg, kind_of: Array)
+      end
+
       def backup_options(arg = nil)
         set_or_return(:backup_options, arg, kind_of: Array)
       end

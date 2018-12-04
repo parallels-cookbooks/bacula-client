@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: bacula-client
-# Provider:: backup_chef
+# Provider:: backup_systemstate
 #
 # Copyright 2015 Pavel Yudin
 #
@@ -21,13 +21,25 @@ require_relative 'provider_backup'
 class Chef
   class Provider
     class Bacula
-      class BackupChef < Chef::Provider::Bacula::Backup
+      class BackupSystemState < Chef::Provider::Bacula::Backup
         include Chef::DSL::IncludeRecipe
 
         def action_create
-          include_recipe 'build-essential::default'
-
           super
+
+          windows_feature 'WindowsServerBackup' do
+            action :install
+          end
+
+          registry_key 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wbengine\SystemStateBackup' do
+            values [{
+              name: 'AllowSSBToAnyVolume',
+              type: :dword,
+              data: 1,
+            }]
+            action :create
+          end
+
           create_prejob_script
           create_postjob_script
         end
@@ -36,26 +48,20 @@ class Chef
 
         def create_postjob_script
           file new_resource.postjob_script do
-            action :create
-            owner 'root'
-            group 'root'
-            mode '0750'
-            content "#!/bin/bash\nrm -rf #{new_resource.files[0]}\n"
+            rights :full_control, %w(Administrators System)
+            content "rmdir /S /Q #{new_resource.files[0]}"
           end
         end
 
         def create_prejob_script
-          backup_string = "#!/bin/bash\n"
-          backup_string += '/opt/opscode/embedded/bin/knife ec backup '
-          backup_string += "-s #{new_resource.url} " if new_resource.url
-          backup_string += "#{new_resource.files[0]} "
-          backup_string += "> /dev/null\n"
+          disk = new_resource.files[0].split(':')[0]
+
+          backup_string = 'wbadmin start systemstatebackup '
+          backup_string += "-backupTarget:#{disk}: "
+          backup_string += '-quiet'
 
           file new_resource.prejob_script do
-            action :create
-            owner 'root'
-            group 'root'
-            mode '0750'
+            rights :full_control, %w(Administrators System)
             content backup_string
           end
         end
