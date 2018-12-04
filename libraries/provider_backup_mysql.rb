@@ -39,7 +39,7 @@ class Chef
             mysqldump_string += "-h #{new_resource.host} " if new_resource.host
             mysqldump_string += "-P #{new_resource.port} " if new_resource.port
             mysqldump_string += "#{new_resource.backup_options.join(' ')} " if new_resource.backup_options
-            mysqldump_string += new_resource.database.to_s
+            mysqldump_string += " #{new_resource.database} "
             mysqldump_string += "#{new_resource.tables.join(' ')} " if new_resource.tables
             mysqldump_string += " > #{new_resource.files[0]}" unless new_resource.bpipe
             mysqldump_string += "\n"
