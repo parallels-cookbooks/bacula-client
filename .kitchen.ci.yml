@@ -1,7 +1,6 @@
 ---
 driver:
-  name: vagrant
-  provider: parallels
+  name: vz
 
 provisioner:
   name: chef_zero
