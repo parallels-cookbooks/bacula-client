@@ -54,27 +54,5 @@ namespace :integration do
   end
 end
 
-namespace :policyfile do
-  desc 'Run "chef install" for all files `policies/*.rb`'
-  task :install do
-    execute_chefdk('policies/*.rb', 'install')
-  end
-
-  desc 'Run "chef update" for all files `policies/*.rb`'
-  task :update do
-    execute_chefdk('policies/*.rb', 'update')
-  end
-
-  desc 'Run "chef update -a" for all files `policies/*.rb`'
-  task :update_a do
-    execute_chefdk('policies/*.rb', 'update -a')
-  end
-
-  desc 'Run "chef push production" for all files `policies/*.rb`'
-  task :push_production do
-    execute_chefdk('policies/*.rb', 'push production')
-  end
-end
-
 # Default
-task default: ['style', 'policyfile:install', 'integration:vagrant']
+task default: ['style', 'integration:vagrant']
