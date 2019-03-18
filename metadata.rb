@@ -6,7 +6,7 @@ description      'Installs/Configures bacula-client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 issues_url 'https://jira.prls.net/projects/DI/issues/' if respond_to?(:issues_url)
 source_url 'https://git.prls.net/projects/COOK/repos/bacula-client' if respond_to?(:source_url)
-version '1.1.7'
+version '1.1.8'
 
 depends 'apt'
 depends 'build-essential'
