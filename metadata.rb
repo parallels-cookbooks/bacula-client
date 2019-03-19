@@ -4,9 +4,9 @@ maintainer_email 'pyudin@parallels.com'
 license          'Apache 2.0'
 description      'Installs/Configures bacula-client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-issues_url 'https://jira.prls.net/projects/DI/issues/' if respond_to?(:issues_url)
-source_url 'https://git.prls.net/projects/COOK/repos/bacula-client' if respond_to?(:source_url)
-version '1.1.8'
+issues_url 'https://github.com/parallels-cookbooks/bacula-client/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/parallels-cookbooks/bacula-client' if respond_to?(:source_url)
+version '1.1.9'
 
 depends 'apt'
 depends 'build-essential'
